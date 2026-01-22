@@ -1,6 +1,6 @@
 import { NextRequest } from "next/server";
-import { personPool } from "@/app/db/connection";
-import { IEmployee } from "../route";
+import { compPool } from "@/app/db/connection";
+import { ICompJob } from "../route";
 
 export async function GET(
   request: NextRequest,
@@ -9,8 +9,8 @@ export async function GET(
   const id = (await params).id;
 
   try {
-    const [rows] = await personPool.query<IEmployee[]>(
-      `SELECT ID, FullName, Initials, LogInName  FROM Employees WHERE ID = ${id} LIMIT 10`,
+    const [rows] = await compPool.query<ICompJob[]>(
+      `SELECT ID, QuoteNumber, QuoteRev, JobNumber, Customer, ProjectName, SalesPerson FROM Jobs WHERE ID = ${id} LIMIT 10`,
     );
 
     return new Response(JSON.stringify(rows), {
@@ -22,5 +22,3 @@ export async function GET(
     throw err;
   }
 }
-
-//Can colocate the DELETE or POST endpoints in here as well
