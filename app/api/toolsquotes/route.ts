@@ -13,7 +13,7 @@ export interface IToolQuote extends RowDataPacket {
 export async function GET(request: NextRequest) {
   try {
     const [rows] = await toolsPool.query<IToolQuote[]>(
-      "SELECT ID, Quote, Customer, ProjectName, SalesPerson FROM Dealer_Quotes LIMIT 10",
+      "SELECT ID, Quote, Customer, ProjectName, SalesPerson FROM Sales_Quotes LIMIT 10",
     );
 
     return new Response(JSON.stringify(rows), {
@@ -86,7 +86,7 @@ export async function POST(request: NextRequest) {
     }
 
     const [rows] = await toolsPool.query<IToolQuote[]>(
-      "SELECT ID AS id, Quote, Customer, ProjectName, SalesPerson FROM Sales_Quotes WHERE ID = ? LIMIT 1",
+      "SELECT ID, Quote, Customer, ProjectName, SalesPerson FROM Sales_Quotes WHERE ID = ? LIMIT 1",
       [ID],
     );
 
@@ -95,7 +95,7 @@ export async function POST(request: NextRequest) {
       headers: { "Content-Type": "application/json" },
     });
   } catch (err) {
-    console.error("POST /Dealer_Quotes update error:", err);
+    console.error("POST /Sales_Quotes update error:", err);
     return new Response(JSON.stringify({ error: "Internal server error" }), {
       status: 500,
       headers: { "Content-Type": "application/json" },
