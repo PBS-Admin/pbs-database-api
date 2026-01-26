@@ -55,5 +55,6 @@ export const config = {
     "/api/employees/:path*",
     "/api/salesquotes/:path*",
     "/api/compjobs/:path*",
+    "/api/toolsquotes/:path*",
   ],
 };

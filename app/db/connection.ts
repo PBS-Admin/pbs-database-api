@@ -32,3 +32,13 @@ export const compPool = mysql.createPool({
   connectionLimit: 10,
   queueLimit: 0,
 });
+
+export const toolsPool = mysql.createPool({
+  host: process.env.DB_HOST || "localhost",
+  user: process.env.TOOLS_DB_USER || "root",
+  password: process.env.TOOLS_DB_PASSWORD,
+  database: process.env.TOOLS_DB_NAME || "test_db",
+  waitForConnections: true,
+  connectionLimit: 10,
+  queueLimit: 0,
+});
