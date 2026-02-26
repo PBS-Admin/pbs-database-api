@@ -23,7 +23,7 @@ export async function GET(request: NextRequest) {
       `SELECT ID, AdjutantID, Quote, Customer, ProjectName, SalesPerson,
               ProjectManager, Complexity, Estimator, DateSubmitted,
               EstDateComp, BidDate
-       FROM Sales_Quotes
+       FROM Quotes
        LIMIT 10`,
     );
 
@@ -120,14 +120,14 @@ export async function POST(request: NextRequest) {
       SELECT ID, AdjutantID, Quote, Customer, ProjectName, SalesPerson,
              ProjectManager, Complexity, Estimator, DateSubmitted,
              EstDateComp, BidDate
-      FROM Sales_Quotes
+      FROM Quotes
       WHERE AdjutantID = ?
       LIMIT 1
     `;
 
     // Check if AdjutantID already exists
     const [existing] = await toolsPool.query<IToolQuote[]>(
-      `SELECT ID FROM Sales_Quotes WHERE AdjutantID = ? LIMIT 1`,
+      `SELECT ID FROM Quotes WHERE AdjutantID = ? LIMIT 1`,
       [AdjutantID],
     );
 
@@ -172,7 +172,7 @@ export async function POST(request: NextRequest) {
         `SELECT ID, AdjutantID, Quote, Customer, ProjectName, SalesPerson,
                 ProjectManager, Complexity, Estimator, DateSubmitted,
                 EstDateComp, BidDate
-         FROM Sales_Quotes WHERE ID = ? LIMIT 1`,
+         FROM Quotes WHERE ID = ? LIMIT 1`,
         [result.insertId],
       );
 
