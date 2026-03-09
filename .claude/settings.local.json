@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(rm -rf c:/Programs/pbs-database-api/.next)",
+      "Bash(npm run build)"
+    ]
+  }
+}
