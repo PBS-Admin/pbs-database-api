@@ -1,6 +1,7 @@
 import { NextRequest } from "next/server";
 import { toolsPool } from "@/app/db/connection";
 import { RowDataPacket, ResultSetHeader } from "mysql2";
+import { validateRequest, okResponse, failResponse } from "@/app/lib/apiAuth";
 
 export interface IToolQuote extends RowDataPacket {
   ID: number;
@@ -17,23 +18,26 @@ export interface IToolQuote extends RowDataPacket {
   BidDate: Date | null;
 }
 
+const SELECT_FIELDS = `ID, AdjutantID, Quote, Customer, ProjectName, SalesPerson,
+  ProjectManager, Complexity, Estimator, DateSubmitted, EstDateComp, BidDate`;
+
 export async function GET(request: NextRequest) {
+  const auth = await validateRequest(request);
+  if (!auth.valid) return auth.response;
+
   try {
     const [rows] = await toolsPool.query<IToolQuote[]>(
-      `SELECT ID, AdjutantID, Quote, Customer, ProjectName, SalesPerson,
-              ProjectManager, Complexity, Estimator, DateSubmitted,
-              EstDateComp, BidDate
-       FROM Quotes
-       LIMIT 10`,
+      `SELECT ${SELECT_FIELDS} FROM Quotes LIMIT 10`,
     );
 
-    return new Response(JSON.stringify(rows), {
-      status: 200,
-      headers: { "Content-Type": "application/json" },
-    });
+    return okResponse("GETPROJECTINFO", rows, "Records Retrieved");
   } catch (err) {
-    console.error("Query error:", err);
-    throw err;
+    console.error("GET /api/projectinfo error:", err);
+    return failResponse(
+      "Internal Server Error",
+      "An unexpected error occurred.",
+      500,
+    );
   }
 }
 
@@ -53,7 +57,6 @@ function validateAndFormatDatetime(
     );
   }
 
-  // Format as MySQL datetime: YYYY-MM-DD HH:MM:SS
   const year = date.getFullYear();
   const month = String(date.getMonth() + 1).padStart(2, "0");
   const day = String(date.getDate()).padStart(2, "0");
@@ -65,127 +68,156 @@ function validateAndFormatDatetime(
 }
 
 export async function POST(request: NextRequest) {
-  try {
-    const body = await request.json();
-    const {
-      AdjutantID,
-      Quote,
-      Customer,
-      ProjectName,
-      SalesPerson,
-      ProjectManager,
-      Complexity,
-      Estimator,
-      DateSubmitted,
-      EstDateComp,
-      BidDate,
-    } = body ?? {};
+  const auth = await validateRequest(request);
+  if (!auth.valid) return auth.response;
 
+  // Validate REQUESTTYPE
+  const requestType = auth.requestType;
+  if (!requestType) {
+    return failResponse(
+      "Missing REQUESTTYPE",
+      "REQUESTTYPE is required for POST requests.",
+    );
+  }
+
+  const validTypes = ["SAVEPROJECTINFO", "NEWPROJECTINFO"];
+  if (!validTypes.includes(requestType)) {
+    return failResponse(
+      "Invalid REQUESTTYPE",
+      `REQUESTTYPE '${requestType}' is not valid. Valid types: ${validTypes.join(", ")}`,
+    );
+  }
+
+  // Extract data from DATA1
+  const data1 = auth.data1;
+  if (!data1 || typeof data1 !== "object") {
+    return failResponse(
+      "Missing DATA1",
+      "DATA1 is required and must be a JSON object.",
+    );
+  }
+
+  const {
+    AdjutantID,
+    Quote,
+    Customer,
+    ProjectName,
+    SalesPerson,
+    ProjectManager,
+    Complexity,
+    Estimator,
+    DateSubmitted,
+    EstDateComp,
+    BidDate,
+  } = data1;
+
+  try {
     // AdjutantID is required as the lookup key
-    if (typeof AdjutantID !== "number" || Number.isNaN(AdjutantID)) {
-      return new Response(
-        JSON.stringify({ error: "Field 'AdjutantID' (number) is required." }),
-        { status: 400, headers: { "Content-Type": "application/json" } },
+    const parsedAdjutantID = Number(AdjutantID);
+    if (
+      AdjutantID === null ||
+      AdjutantID === undefined ||
+      Number.isNaN(parsedAdjutantID)
+    ) {
+      return failResponse(
+        "Invalid DATA1",
+        "Field 'AdjutantID' (number) is required in DATA1.",
       );
     }
 
-    // Collect optional fields into a unified structure for reuse in UPDATE/INSERT
+    // Collect optional fields
     const columns: { name: string; value: any }[] = [];
 
-    if (typeof Quote === "number") columns.push({ name: "Quote", value: Quote });
-    if (typeof SalesPerson === "number") columns.push({ name: "SalesPerson", value: SalesPerson });
-    if (typeof ProjectManager === "number") columns.push({ name: "ProjectManager", value: ProjectManager });
-    if (typeof Complexity === "number") columns.push({ name: "Complexity", value: Complexity });
-    if (typeof Estimator === "number") columns.push({ name: "Estimator", value: Estimator });
-    if (typeof Customer === "string") columns.push({ name: "Customer", value: Customer });
-    if (typeof ProjectName === "string") columns.push({ name: "ProjectName", value: ProjectName });
+    if (typeof Quote === "number")
+      columns.push({ name: "Quote", value: Quote });
+    if (typeof SalesPerson === "number")
+      columns.push({ name: "SalesPerson", value: SalesPerson });
+    if (typeof ProjectManager === "number")
+      columns.push({ name: "ProjectManager", value: ProjectManager });
+    if (typeof Complexity === "number")
+      columns.push({ name: "Complexity", value: Complexity });
+    if (typeof Estimator === "number")
+      columns.push({ name: "Estimator", value: Estimator });
+    if (typeof Customer === "string")
+      columns.push({ name: "Customer", value: Customer });
+    if (typeof ProjectName === "string")
+      columns.push({ name: "ProjectName", value: ProjectName });
 
     try {
-      const formattedDateSubmitted = validateAndFormatDatetime(DateSubmitted, "DateSubmitted");
-      if (formattedDateSubmitted !== null) columns.push({ name: "DateSubmitted", value: formattedDateSubmitted });
+      const formattedDateSubmitted = validateAndFormatDatetime(
+        DateSubmitted,
+        "DateSubmitted",
+      );
+      if (formattedDateSubmitted !== null)
+        columns.push({ name: "DateSubmitted", value: formattedDateSubmitted });
 
-      const formattedEstDateComp = validateAndFormatDatetime(EstDateComp, "EstDateComp");
-      if (formattedEstDateComp !== null) columns.push({ name: "EstDateComp", value: formattedEstDateComp });
+      const formattedEstDateComp = validateAndFormatDatetime(
+        EstDateComp,
+        "EstDateComp",
+      );
+      if (formattedEstDateComp !== null)
+        columns.push({ name: "EstDateComp", value: formattedEstDateComp });
 
       const formattedBidDate = validateAndFormatDatetime(BidDate, "BidDate");
-      if (formattedBidDate !== null) columns.push({ name: "BidDate", value: formattedBidDate });
+      if (formattedBidDate !== null)
+        columns.push({ name: "BidDate", value: formattedBidDate });
     } catch (err: any) {
-      return new Response(JSON.stringify({ error: err.message }), {
-        status: 400,
-        headers: { "Content-Type": "application/json" },
-      });
+      return failResponse("Invalid DATA1", err.message);
     }
-
-    const selectSql = `
-      SELECT ID, AdjutantID, Quote, Customer, ProjectName, SalesPerson,
-             ProjectManager, Complexity, Estimator, DateSubmitted,
-             EstDateComp, BidDate
-      FROM Quotes
-      WHERE AdjutantID = ?
-      LIMIT 1
-    `;
 
     // Check if AdjutantID already exists
     const [existing] = await toolsPool.query<IToolQuote[]>(
-      `SELECT ID FROM Quotes WHERE AdjutantID = ? LIMIT 1`,
-      [AdjutantID],
+      "SELECT ID FROM Quotes WHERE AdjutantID = ? LIMIT 1",
+      [parsedAdjutantID],
     );
 
     if (existing.length > 0) {
-      // UPDATE: at least one field is required
+      // UPDATE existing record
       if (columns.length === 0) {
-        return new Response(
-          JSON.stringify({
-            error:
-              "Provide at least one field to update. Valid fields: Quote (number), Customer (string), ProjectName (string), SalesPerson (number), ProjectManager (number), Complexity (number), Estimator (number), DateSubmitted (datetime), EstDateComp (datetime), BidDate (datetime).",
-          }),
-          { status: 400, headers: { "Content-Type": "application/json" } },
+        return failResponse(
+          "Invalid DATA1",
+          "Provide at least one field to update in DATA1. Valid fields: Quote (number), Customer (string), ProjectName (string), SalesPerson (number), ProjectManager (number), Complexity (number), Estimator (number), DateSubmitted (datetime), EstDateComp (datetime), BidDate (datetime).",
         );
       }
 
       const setClause = columns.map((c) => `${c.name} = ?`).join(", ");
-      const updateValues = [...columns.map((c) => c.value), AdjutantID];
+      const updateValues = [...columns.map((c) => c.value), parsedAdjutantID];
 
       await toolsPool.execute<ResultSetHeader>(
-        `UPDATE Sales_Quotes SET ${setClause} WHERE AdjutantID = ? LIMIT 1`,
+        `UPDATE Quotes SET ${setClause} WHERE AdjutantID = ? LIMIT 1`,
         updateValues,
       );
 
-      const [rows] = await toolsPool.query<IToolQuote[]>(selectSql, [AdjutantID]);
-
-      return new Response(
-        JSON.stringify({ message: "Updated", data: rows[0] }),
-        { status: 200, headers: { "Content-Type": "application/json" } },
+      const [rows] = await toolsPool.query<IToolQuote[]>(
+        `SELECT ${SELECT_FIELDS} FROM Quotes WHERE AdjutantID = ? LIMIT 1`,
+        [parsedAdjutantID],
       );
+
+      return okResponse("SAVEPROJECTINFO", rows[0], "Record Updated");
     } else {
-      // INSERT: AdjutantID is always included; other fields are optional
+      // INSERT new record
       const insertColumns = ["AdjutantID", ...columns.map((c) => c.name)];
-      const insertValues = [AdjutantID, ...columns.map((c) => c.value)];
+      const insertValues = [parsedAdjutantID, ...columns.map((c) => c.value)];
       const placeholders = insertColumns.map(() => "?").join(", ");
 
       const [result] = await toolsPool.execute<ResultSetHeader>(
-        `INSERT INTO Sales_Quotes (${insertColumns.join(", ")}) VALUES (${placeholders})`,
+        `INSERT INTO Quotes (${insertColumns.join(", ")}) VALUES (${placeholders})`,
         insertValues,
       );
 
       const [rows] = await toolsPool.query<IToolQuote[]>(
-        `SELECT ID, AdjutantID, Quote, Customer, ProjectName, SalesPerson,
-                ProjectManager, Complexity, Estimator, DateSubmitted,
-                EstDateComp, BidDate
-         FROM Quotes WHERE ID = ? LIMIT 1`,
+        `SELECT ${SELECT_FIELDS} FROM Quotes WHERE ID = ? LIMIT 1`,
         [result.insertId],
       );
 
-      return new Response(
-        JSON.stringify({ message: "Created", data: rows[0] }),
-        { status: 201, headers: { "Content-Type": "application/json" } },
-      );
+      return okResponse("NEWPROJECTINFO", rows[0], "Record Created", 201);
     }
   } catch (err) {
-    console.error("POST /api/projectinfo upsert error:", err);
-    return new Response(JSON.stringify({ error: "Internal server error" }), {
-      status: 500,
-      headers: { "Content-Type": "application/json" },
-    });
+    console.error("POST /api/projectinfo error:", err);
+    return failResponse(
+      "Internal Server Error",
+      "An unexpected error occurred.",
+      500,
+    );
   }
 }
