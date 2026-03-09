@@ -1,6 +1,6 @@
 ## Introduction
 
-This is a Next.js headless API app that allows integration between the ABIS Adjutant system and our PBS internal applications.
+This is a Next.js app with an API that allows integration between the ABIS Adjutant system and our PBS internal applications.
 
 ### Production
 
@@ -12,16 +12,10 @@ For more details, see [route.js file convention](https://nextjs.org/docs/app/api
 
 ### Live routes
 
-- [`/[slug]`](https://pbs-database-api.vercel.app/dynamic-slug)
-- [`/api`](https://pbs-database-api.vercel.app/api)
-- [`/api/compjobs`](https://pbs-database-api.vercel.app/api/compjobs)
-- [`/api/compjobs/[id]`](https://pbs-database-api.vercel.app/api/compjobs/1)
 - [`/api/employees`](https://pbs-database-api.vercel.app/api/employees)
 - [`/api/employees/[id]`](https://pbs-database-api.vercel.app/api/employees/1)
 - [`/api/projectinfo`](https://pbs-database-api.vercel.app/api/projectinfo)
-- [`/api/salesquotes`](https://pbs-database-api.vercel.app/api/salesquotes)
-- [`/api/salesquotes/[id]`](https://pbs-database-api.vercel.app/api/salesquotes/1)
-- [`/api/secret`](https://pbs-database-api.vercel.app/api/secret)
+
 
 ## Development
 
