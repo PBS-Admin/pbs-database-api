@@ -128,16 +128,31 @@ export async function POST(request: NextRequest) {
     // Collect optional fields
     const columns: { name: string; value: any }[] = [];
 
-    if (typeof Quote === "number")
+    if (typeof Quote === "number") {
       columns.push({ name: "Quote", value: Quote });
-    if (typeof SalesPerson === "number")
+    } else if (typeof Quote === "string") {
+      columns.push({ name: "Quote", value: +Quote });
+    }
+    if (typeof SalesPerson === "number") {
       columns.push({ name: "SalesPerson", value: SalesPerson });
-    if (typeof ProjectManager === "number")
+    } else if (typeof SalesPerson === "string") {
+      columns.push({ name: "SalesPerson", value: +SalesPerson });
+    }
+    if (typeof ProjectManager === "number") {
       columns.push({ name: "ProjectManager", value: ProjectManager });
-    if (typeof Complexity === "number")
+    } else if (typeof ProjectManager === "string") {
+      columns.push({ name: "ProjectManager", value: +ProjectManager });
+    }
+    if (typeof Complexity === "number") {
       columns.push({ name: "Complexity", value: Complexity });
-    if (typeof Estimator === "number")
+    } else if (typeof Complexity === "string") {
+      columns.push({ name: "Complexity", value: +Complexity });
+    }
+    if (typeof Estimator === "number") {
       columns.push({ name: "Estimator", value: Estimator });
+    } else if (typeof Estimator === "string") {
+      columns.push({ name: "Estimator", value: +Estimator });
+    }
     if (typeof Customer === "string")
       columns.push({ name: "Customer", value: Customer });
     if (typeof ProjectName === "string")
