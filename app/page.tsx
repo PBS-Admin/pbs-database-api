@@ -39,7 +39,7 @@ export default function HomePage() {
     <div className="container">
       <div className="title-container">
         <div>
-          <h1>PBS Database API.</h1>
+          <h1>PBS Database API</h1>
           <p className="subtitle">API Version 1.0 &mdash; Interactive Documentation</p>
         </div>
         <img src="/PBSLogo_Trans.png" alt="PBS Logo" width={300} />
