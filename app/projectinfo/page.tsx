@@ -20,7 +20,7 @@ export default function ProjectInfoPage() {
         <h3>Response Fields</h3>
         <table>
           <thead>
-            <tr><th>Field</th><th>Type</th><th>Description.</th></tr>
+            <tr><th>Field</th><th>Type</th><th>Description</th></tr>
           </thead>
           <tbody>
             <tr><td><code className="inline-code">ID</code></td><td>number</td><td>Record ID</td></tr>
