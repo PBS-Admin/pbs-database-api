@@ -100,12 +100,23 @@ export async function POST(request: NextRequest) {
   const {
     AdjutantID,
     Quote,
+    CustNo,
     Customer,
+//    CustomerStreet,
+//    CustomerCity,
+//    CustomerState,
+//    CustomerZip,
     ProjectName,
     SalesPerson,
     ProjectManager,
     Complexity,
     Estimator,
+    ProjectStreet,
+    ProjectCity,
+    ProjectState,
+    ProjectZip,
+    ProjectCounty,
+    ProjectStatus,
     DateSubmitted,
     EstDateComp,
     BidDate,
@@ -130,33 +141,86 @@ export async function POST(request: NextRequest) {
 
     if (typeof Quote === "number") {
       columns.push({ name: "Quote", value: Quote });
-    } else if (typeof Quote === "string") {
-      columns.push({ name: "Quote", value: +Quote });
+//    } else if (typeof Quote === "string") {
+//      columns.push({ name: "Quote", value: +Quote });
+    } else {
+      return failResponse(
+        "Invalid DATA1",
+        "Field 'Quote' is required to be a number.",
+      );
     }
     if (typeof SalesPerson === "number") {
       columns.push({ name: "SalesPerson", value: SalesPerson });
-    } else if (typeof SalesPerson === "string") {
-      columns.push({ name: "SalesPerson", value: +SalesPerson });
+//    } else if (typeof SalesPerson === "string") {
+//      columns.push({ name: "SalesPerson", value: +SalesPerson });
     }
     if (typeof ProjectManager === "number") {
       columns.push({ name: "ProjectManager", value: ProjectManager });
-    } else if (typeof ProjectManager === "string") {
-      columns.push({ name: "ProjectManager", value: +ProjectManager });
+//    } else if (typeof ProjectManager === "string") {
+//      columns.push({ name: "ProjectManager", value: +ProjectManager });
     }
     if (typeof Complexity === "number") {
       columns.push({ name: "Complexity", value: Complexity });
-    } else if (typeof Complexity === "string") {
-      columns.push({ name: "Complexity", value: +Complexity });
+//    } else if (typeof Complexity === "string") {
+//      columns.push({ name: "Complexity", value: +Complexity });
     }
     if (typeof Estimator === "number") {
       columns.push({ name: "Estimator", value: Estimator });
-    } else if (typeof Estimator === "string") {
-      columns.push({ name: "Estimator", value: +Estimator });
+//    } else if (typeof Estimator === "string") {
+//      columns.push({ name: "Estimator", value: +Estimator });
     }
+    if (typeof CustNo === "string")
+      columns.push({ name: "CustNo", value: CustNo });
     if (typeof Customer === "string")
       columns.push({ name: "Customer", value: Customer });
+//    if (typeof CustomerStreet === "string")
+//      columns.push({ name: "CustomerStreet", value: CustomerStreet });
+//    if (typeof CustomerCity === "string")
+//      columns.push({ name: "CustomerCity", value: CustomerCity });
+//    if (typeof CustomerState === "string")
+//      columns.push({ name: "CustomerState", value: CustomerState });
+//    if (typeof CustomerZip === "string")
+//      columns.push({ name: "CustomerZip", value: CustomerZip });
     if (typeof ProjectName === "string")
       columns.push({ name: "ProjectName", value: ProjectName });
+    if (typeof ProjectStreet === "string")
+      columns.push({ name: "ProjectStreet", value: ProjectStreet });
+    if (typeof ProjectCity === "string")
+      columns.push({ name: "ProjectCity", value: ProjectCity });
+    if (typeof ProjectState === "string")
+      columns.push({ name: "ProjectState", value: ProjectState });
+    if (typeof ProjectZip === "string")
+      columns.push({ name: "ProjectZip", value: ProjectZip });
+    if (typeof ProjectCounty === "string")
+      columns.push({ name: "ProjectCounty", value: ProjectCounty });
+    if (typeof ProjectStatus === "string") {
+      if (ProjectStatus == "Quote Started") {
+        columns.push({ name: "Progress", value: 1 });
+        columns.push({ name: "OnHold", value: 0 });
+      }
+      if (ProjectStatus == "Est Review") {
+        columns.push({ name: "Progress", value: 101 });
+        columns.push({ name: "OnHold", value: 0 });
+      }
+      if (ProjectStatus == "In Estimating") {
+        columns.push({ name: "Progress", value: 1101 });
+        columns.push({ name: "OnHold", value: 0 });
+      }
+      if (ProjectStatus == "Est Checking") {
+        columns.push({ name: "Progress", value: 11101 });
+        columns.push({ name: "OnHold", value: 0 });
+      }
+      if (ProjectStatus == "Check Review") {
+        columns.push({ name: "Progress", value: 111101 });
+        columns.push({ name: "OnHold", value: 0 });
+      }
+      if (ProjectStatus == "Quote Finished") {
+        columns.push({ name: "Progress", value: 1111101 });
+        columns.push({ name: "OnHold", value: 0 });
+      }
+      if (ProjectStatus == "On Hold") {
+        columns.push({ name: "OnHold", value: 1 });
+    }
 
     try {
       const formattedDateSubmitted = validateAndFormatDatetime(
@@ -176,8 +240,9 @@ export async function POST(request: NextRequest) {
       const formattedBidDate = validateAndFormatDatetime(BidDate, "BidDate");
       if (formattedBidDate !== null)
         columns.push({ name: "BidDate", value: formattedBidDate });
+
     } catch (err: any) {
-      return failResponse("Invalid DATA1", err.message);
+//      return failResponse("Invalid DATA1", err.message);
     }
 
     // Check if AdjutantID already exists
@@ -191,7 +256,7 @@ export async function POST(request: NextRequest) {
       if (columns.length === 0) {
         return failResponse(
           "Invalid DATA1",
-          "Provide at least one field to update in DATA1. Valid fields: Quote (number), Customer (string), ProjectName (string), SalesPerson (number), ProjectManager (number), Complexity (number), Estimator (number), DateSubmitted (datetime), EstDateComp (datetime), BidDate (datetime).",
+          "Provide at least one field to update in DATA1. Valid fields: Quote (number), CustNo (string), Customer (string), ProjectName (string), SalesPerson (number), ProjectManager (number), Complexity (number), Estimator (number), ProjectStreet (string), ProjectCity (string), ProjectState (string), ProjectZip (string), ProjectCounty (string), ProjectStatus (string), DateSubmitted (datetime), EstDateComp (datetime), BidDate (datetime).",
         );
       }
 
