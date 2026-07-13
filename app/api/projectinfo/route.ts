@@ -228,9 +228,11 @@ export async function POST(request: NextRequest) {
         "DateSubmitted",
       );
       if (formattedDateSubmitted !== null) {
-        columns.push({ name: "DateSubmitted", value: formattedDateSubmitted });
+//        columns.push({ name: "DateSubmitted", value: formattedDateSubmitted });
+        columns.push({ name: "DateStarted", value: formattedDateSubmitted });
       } else {
-        columns.push({ name: "DateSubmitted", value: null });
+//        columns.push({ name: "DateSubmitted", value: null });
+        columns.push({ name: "DateStarted", value: null });
       }
 
       const formattedEstDateComp = validateAndFormatDatetime(
