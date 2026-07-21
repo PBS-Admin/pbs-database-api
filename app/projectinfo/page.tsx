@@ -41,6 +41,7 @@ export default function ProjectInfoPage() {
             <tr><td><code className="inline-code">DateSubmitted</code></td><td>datetime</td><td>Submission Date (Started Date)</td></tr>
             <tr><td><code className="inline-code">EstDateComp</code></td><td>datetime</td><td>Estimated Completion Date</td></tr>
             <tr><td><code className="inline-code">BidDate</code></td><td>datetime</td><td>Bid Date</td></tr>
+            <tr><td><code className="inline-code">ProgressStatus</code></td><td>string</td><td>Text Status</td></tr>
           </tbody>
         </table>
       </div>
@@ -74,7 +75,6 @@ export default function ProjectInfoPage() {
         defaultEndpoint="/api/projectinfo"
         method="POST"
         requestTypes={["NEWPROJECTINFO", "SAVEPROJECTINFO"]}
-//        ProjectStatus={["Quote Started", "Est Review", "In Estimating", "Est Checking", "Check Review", "Quote Finished", "On Hold", "Pending"]}
         bodyFields={[
           { label: "AdjutantID", name: "AdjutantID", type: "number", placeholder: "e.g. 5", required: true },
           { label: "Quote", name: "Quote", type: "number", placeholder: "e.g. 19999", required: true },
