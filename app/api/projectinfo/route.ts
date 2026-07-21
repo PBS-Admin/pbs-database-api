@@ -60,7 +60,8 @@ function validateAndFormatDatetime(
   fieldName: string,
 ): string | null {
   if (value === null || value === undefined) {
-    return null;
+//    return null;
+    return "2026-07-01 00:00:00"; // Default date if null or undefined
   }
 
   const date = new Date(value);
@@ -253,12 +254,11 @@ export async function POST(request: NextRequest) {
         EstDateComp,
         "EstDateComp",
       );
-//      if (formattedEstDateComp !== null) {
-//        columns.push({ name: "EstDateComp", value: formattedEstDateComp });
-//      } else {
-//        columns.push({ name: "EstDateComp", value: null });
-//      }
-        columns.push({ name: "EstDateComp", value: EstDateComp });
+      if (formattedEstDateComp !== null) {
+        columns.push({ name: "EstDateComp", value: formattedEstDateComp });
+      } else {
+        columns.push({ name: "EstDateComp", value: null });
+      }
 
       const formattedBidDate = validateAndFormatDatetime(BidDate, "BidDate");
       if (formattedBidDate !== null) {
