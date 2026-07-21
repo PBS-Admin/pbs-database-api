@@ -252,10 +252,11 @@ export async function POST(request: NextRequest) {
         "EstDateComp",
       );
 //      if (formattedEstDateComp !== null) {
-        columns.push({ name: "EstDateComp", value: formattedEstDateComp });
+//        columns.push({ name: "EstDateComp", value: formattedEstDateComp });
 //      } else {
 //        columns.push({ name: "EstDateComp", value: null });
 //      }
+        columns.push({ name: "EstDateComp", value: EstDateComp });
 
       const formattedBidDate = validateAndFormatDatetime(BidDate, "BidDate");
       if (formattedBidDate !== null) {
