@@ -93,6 +93,7 @@ export default function ProjectInfoPage() {
           { label: "Date Submitted", name: "DateSubmitted", type: "datetime-local" },
           { label: "Est. Completion", name: "EstDateComp", type: "datetime-local" },
           { label: "Bid Date", name: "BidDate", type: "datetime-local" },
+          { label: "ProjectStatus", name: "ProjectStatus", type: "text", placeholder: "e.g. In Estimating" },
         ]}
       />
 
