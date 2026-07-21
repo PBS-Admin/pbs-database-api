@@ -91,7 +91,7 @@ export default function ProjectInfoPage() {
           { label: "ProjectZip", name: "ProjectZip", type: "text", placeholder: "e.g. 97071" },
           { label: "ProjectCounty", name: "ProjectCounty", type: "text", placeholder: "e.g. Marion" },
           { label: "Date Submitted", name: "DateSubmitted", type: "datetime-local" },
-          { label: "Est. Completion", name: "EstDateComp", type: "datetime" },
+          { label: "Est. Completion", name: "EstDateComp", type: "datetime-local" },
           { label: "Bid Date", name: "BidDate", type: "datetime-local" },
         ]}
       />
