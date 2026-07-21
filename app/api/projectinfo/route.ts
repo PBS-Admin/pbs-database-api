@@ -269,6 +269,7 @@ export async function POST(request: NextRequest) {
 
 //    } catch (err: any) {
 //      return failResponse("Invalid DATA1", err.message);
+      return failResponse("Date Format", EstDateComp);
 //    }
 
     // Check if AdjutantID already exists
