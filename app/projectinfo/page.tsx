@@ -93,7 +93,7 @@ export default function ProjectInfoPage() {
         ]}
       />
 
-      <div className="footer">PBS Database API v1.0</div>
+      <div className="footer">PBS Database API v1.00</div>
     </div>
   );
 }
