@@ -25,6 +25,7 @@ export interface IToolQuote extends RowDataPacket {
   ProjectCounty: string | null;
   Progress: number | null;
   OnHold: number | null;
+  DateStarted: Date | null;
   DateSubmitted: Date | null;
   EstDateComp: Date | null;
   BidDate: Date | null;
@@ -32,7 +33,7 @@ export interface IToolQuote extends RowDataPacket {
 
 const SELECT_FIELDS = `ID, AdjutantID, Quote, CustNo, Customer, ProjectName, SalesPerson,
   ProjectManager, Complexity, Estimator, ProjectStreet, ProjectCity, ProjectState, ProjectZip,
-  ProjectCounty, Progress, OnHold, DateSubmitted, EstDateComp, BidDate`;
+  ProjectCounty, Progress, OnHold, DateStarted, DateSubmitted, EstDateComp, BidDate`;
 
 export async function GET(request: NextRequest) {
   const auth = await validateRequest(request);
@@ -60,8 +61,7 @@ function validateAndFormatDatetime(
   fieldName: string,
 ): string | null {
   if (value === null || value === undefined) {
-//    return null;
-    return "2026-07-01 00:00:00"; // Default date if null or undefined
+    return null;
   }
 
   const date = new Date(value);
