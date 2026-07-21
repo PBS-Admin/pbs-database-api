@@ -75,7 +75,7 @@ export default function ProjectInfoPage() {
         requestTypes={["NEWPROJECTINFO", "SAVEPROJECTINFO"]}
         bodyFields={[
           { label: "AdjutantID", name: "AdjutantID", type: "number", placeholder: "e.g. 5", required: true },
-          { label: "Quote", name: "Quote", type: "number", placeholder: "e.g. 19999" },
+          { label: "Quote", name: "Quote", type: "number", placeholder: "e.g. 19999", required: true },
           { label: "Customer", name: "Customer", type: "text", placeholder: "e.g. PBS Test Customer" },
           { label: "ProjectName", name: "ProjectName", type: "text", placeholder: "e.g. Standard Metal Building" },
           { label: "SalesPerson", name: "SalesPerson", type: "number", placeholder: "Employee ID" },
@@ -88,7 +88,7 @@ export default function ProjectInfoPage() {
           { label: "ProjectZip", name: "ProjectZip", type: "text", placeholder: "e.g. 97071" },
           { label: "ProjectCounty", name: "ProjectCounty", type: "text", placeholder: "e.g. Marion" },
           { label: "Date Submitted", name: "DateSubmitted", type: "datetime-local" },
-          { label: "Est. Completion", name: "EstDateComp", type: "datetime-local" },
+          { label: "Est. Completion", name: "EstDateComp", type: "datetime" },
           { label: "Bid Date", name: "BidDate", type: "datetime-local" },
         ]}
       />
