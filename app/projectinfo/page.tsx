@@ -77,7 +77,7 @@ export default function ProjectInfoPage() {
         requestTypes={["NEWPROJECTINFO", "SAVEPROJECTINFO"]}
         bodyFields={[
           { label: "AdjutantID", name: "AdjutantID", type: "number", placeholder: "e.g. 5", required: true },
-          { label: "Quote", name: "Quote", type: "number", placeholder: "e.g. 19999", required: true },
+          { label: "Quote", name: "Quote", type: "number", placeholder: "e.g. 19999" },
           { label: "CustNo", name: "CustNo", type: "text", placeholder: "e.g. PBS0001" },
           { label: "Customer", name: "Customer", type: "text", placeholder: "e.g. PBS Test Customer" },
           { label: "ProjectName", name: "ProjectName", type: "text", placeholder: "e.g. Standard Metal Building" },

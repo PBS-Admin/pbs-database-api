@@ -9,10 +9,6 @@ export interface IToolQuote extends RowDataPacket {
   Quote: number | null;
   CustNo: string | null;
   Customer: string | null;
-//  CustomerStreet: string | null;
-//  CustomerCity: string | null;
-//  CustomerState: string | null;
-//  CustomerZip: string | null;
   ProjectName: string | null;
   SalesPerson: number | null;
   ProjectManager: number | null;
@@ -116,10 +112,6 @@ export async function POST(request: NextRequest) {
     Quote,
     CustNo,
     Customer,
-//    CustomerStreet,
-//    CustomerCity,
-//    CustomerState,
-//    CustomerZip,
     ProjectName,
     SalesPerson,
     ProjectManager,
@@ -157,11 +149,6 @@ export async function POST(request: NextRequest) {
       columns.push({ name: "Quote", value: Quote });
     } else if (typeof Quote === "string") {
       columns.push({ name: "Quote", value: +Quote });
-//    } else {
-//      return failResponse(
-//        "Invalid DATA1",
-//        "Field 'Quote' is required to be a number.",
-//      );
     }
     if (typeof SalesPerson === "number") {
       columns.push({ name: "SalesPerson", value: SalesPerson });
@@ -187,14 +174,6 @@ export async function POST(request: NextRequest) {
       columns.push({ name: "CustNo", value: CustNo });
     if (typeof Customer === "string")
       columns.push({ name: "Customer", value: Customer });
-//    if (typeof CustomerStreet === "string")
-//      columns.push({ name: "CustomerStreet", value: CustomerStreet });
-//    if (typeof CustomerCity === "string")
-//      columns.push({ name: "CustomerCity", value: CustomerCity });
-//    if (typeof CustomerState === "string")
-//      columns.push({ name: "CustomerState", value: CustomerState });
-//    if (typeof CustomerZip === "string")
-//      columns.push({ name: "CustomerZip", value: CustomerZip });
     if (typeof ProjectName === "string")
       columns.push({ name: "ProjectName", value: ProjectName });
     if (typeof ProjectStreet === "string")
