@@ -236,7 +236,7 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    try {
+//    try {
       const formattedDateSubmitted = validateAndFormatDatetime(
         DateSubmitted,
         "DateSubmitted",
@@ -253,11 +253,12 @@ export async function POST(request: NextRequest) {
         EstDateComp,
         "EstDateComp",
       );
-      if (formattedEstDateComp !== null) {
-        columns.push({ name: "EstDateComp", value: formattedEstDateComp });
-      } else {
-        columns.push({ name: "EstDateComp", value: null });
-      }
+//      if (formattedEstDateComp !== null) {
+//        columns.push({ name: "EstDateComp", value: formattedEstDateComp });
+//      } else {
+//        columns.push({ name: "EstDateComp", value: null });
+//      }
+        columns.push({ name: "EstDateComp", value: EstDateComp });
 
       const formattedBidDate = validateAndFormatDatetime(BidDate, "BidDate");
       if (formattedBidDate !== null) {
@@ -266,9 +267,9 @@ export async function POST(request: NextRequest) {
         columns.push({ name: "BidDate", value: null });
       }
 
-    } catch (err: any) {
-      return failResponse("Invalid DATA1", err.message);
-    }
+//    } catch (err: any) {
+//      return failResponse("Invalid DATA1", err.message);
+//    }
 
     // Check if AdjutantID already exists
     const [existing] = await toolsPool.query<IToolQuote[]>(
