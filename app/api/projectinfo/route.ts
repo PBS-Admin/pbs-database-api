@@ -155,33 +155,33 @@ export async function POST(request: NextRequest) {
 
     if (typeof Quote === "number") {
       columns.push({ name: "Quote", value: Quote });
-//    } else if (typeof Quote === "string") {
-//      columns.push({ name: "Quote", value: +Quote });
-    } else {
-      return failResponse(
-        "Invalid DATA1",
-        "Field 'Quote' is required to be a number.",
+    } else if (typeof Quote === "string") {
+      columns.push({ name: "Quote", value: +Quote });
+//    } else {
+//      return failResponse(
+//        "Invalid DATA1",
+//        "Field 'Quote' is required to be a number.",
       );
     }
     if (typeof SalesPerson === "number") {
       columns.push({ name: "SalesPerson", value: SalesPerson });
-//    } else if (typeof SalesPerson === "string") {
-//      columns.push({ name: "SalesPerson", value: +SalesPerson });
+    } else if (typeof SalesPerson === "string") {
+      columns.push({ name: "SalesPerson", value: +SalesPerson });
     }
     if (typeof ProjectManager === "number") {
       columns.push({ name: "ProjectManager", value: ProjectManager });
-//    } else if (typeof ProjectManager === "string") {
-//      columns.push({ name: "ProjectManager", value: +ProjectManager });
+    } else if (typeof ProjectManager === "string") {
+      columns.push({ name: "ProjectManager", value: +ProjectManager });
     }
     if (typeof Complexity === "number") {
       columns.push({ name: "Complexity", value: Complexity });
-//    } else if (typeof Complexity === "string") {
-//      columns.push({ name: "Complexity", value: +Complexity });
+    } else if (typeof Complexity === "string") {
+      columns.push({ name: "Complexity", value: +Complexity });
     }
     if (typeof Estimator === "number") {
       columns.push({ name: "Estimator", value: Estimator });
-//    } else if (typeof Estimator === "string") {
-//      columns.push({ name: "Estimator", value: +Estimator });
+    } else if (typeof Estimator === "string") {
+      columns.push({ name: "Estimator", value: +Estimator });
     }
     if (typeof CustNo === "string")
       columns.push({ name: "CustNo", value: CustNo });
