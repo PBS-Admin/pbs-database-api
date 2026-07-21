@@ -74,7 +74,7 @@ export default function ProjectInfoPage() {
         defaultEndpoint="/api/projectinfo"
         method="POST"
         requestTypes={["NEWPROJECTINFO", "SAVEPROJECTINFO"]}
-        ProjectStatus={["Quote Started", "Est Review", "In Estimating", "Est Checking", "Check Review", "Quote Finished", "On Hold", "Pending"]}
+//        ProjectStatus={["Quote Started", "Est Review", "In Estimating", "Est Checking", "Check Review", "Quote Finished", "On Hold", "Pending"]}
         bodyFields={[
           { label: "AdjutantID", name: "AdjutantID", type: "number", placeholder: "e.g. 5", required: true },
           { label: "Quote", name: "Quote", type: "number", placeholder: "e.g. 19999", required: true },
