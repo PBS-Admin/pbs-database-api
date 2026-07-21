@@ -26,6 +26,7 @@ export default function ProjectInfoPage() {
             <tr><td><code className="inline-code">ID</code></td><td>number</td><td>Record ID</td></tr>
             <tr><td><code className="inline-code">AdjutantID</code></td><td>number</td><td>Unique project identifier</td></tr>
             <tr><td><code className="inline-code">Quote</code></td><td>number</td><td>Quote number</td></tr>
+            <tr><td><code className="inline-code">CustNo</code></td><td>string</td><td>Customer number</td></tr>
             <tr><td><code className="inline-code">Customer</code></td><td>string</td><td>Customer name</td></tr>
             <tr><td><code className="inline-code">ProjectName</code></td><td>string</td><td>Name of the project</td></tr>
             <tr><td><code className="inline-code">SalesPerson</code></td><td>number</td><td>Employee ID of salesperson</td></tr>
@@ -76,6 +77,7 @@ export default function ProjectInfoPage() {
         bodyFields={[
           { label: "AdjutantID", name: "AdjutantID", type: "number", placeholder: "e.g. 5", required: true },
           { label: "Quote", name: "Quote", type: "number", placeholder: "e.g. 19999", required: true },
+          { label: "CustNo", name: "CustNo", type: "text", placeholder: "e.g. PBS0001" },
           { label: "Customer", name: "Customer", type: "text", placeholder: "e.g. PBS Test Customer" },
           { label: "ProjectName", name: "ProjectName", type: "text", placeholder: "e.g. Standard Metal Building" },
           { label: "SalesPerson", name: "SalesPerson", type: "number", placeholder: "Employee ID" },
@@ -88,7 +90,7 @@ export default function ProjectInfoPage() {
           { label: "ProjectZip", name: "ProjectZip", type: "text", placeholder: "e.g. 97071" },
           { label: "ProjectCounty", name: "ProjectCounty", type: "text", placeholder: "e.g. Marion" },
           { label: "Date Submitted", name: "DateSubmitted", type: "datetime-local" },
-          { label: "Est. Completion", name: "EstDateComp", type: "datetime-local" },
+          { label: "Est. Completion", name: "EstDateComp", type: "datetime" },
           { label: "Bid Date", name: "BidDate", type: "datetime-local" },
         ]}
       />
