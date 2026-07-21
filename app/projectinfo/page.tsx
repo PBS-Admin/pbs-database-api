@@ -24,23 +24,23 @@ export default function ProjectInfoPage() {
           </thead>
           <tbody>
             <tr><td><code className="inline-code">ID</code></td><td>number</td><td>Record ID</td></tr>
-            <tr><td><code className="inline-code">AdjutantID</code></td><td>number</td><td>Unique project identifier</td></tr>
-            <tr><td><code className="inline-code">Quote</code></td><td>number</td><td>Quote number</td></tr>
-            <tr><td><code className="inline-code">CustNo</code></td><td>string</td><td>Customer number</td></tr>
-            <tr><td><code className="inline-code">Customer</code></td><td>string</td><td>Customer name</td></tr>
-            <tr><td><code className="inline-code">ProjectName</code></td><td>string</td><td>Name of the project</td></tr>
-            <tr><td><code className="inline-code">SalesPerson</code></td><td>number</td><td>Employee ID of salesperson</td></tr>
-            <tr><td><code className="inline-code">ProjectManager</code></td><td>number</td><td>Employee ID of project manager</td></tr>
-            <tr><td><code className="inline-code">Complexity</code></td><td>number</td><td>Complexity rating</td></tr>
-            <tr><td><code className="inline-code">Estimator</code></td><td>number</td><td>Employee ID of estimator</td></tr>
+            <tr><td><code className="inline-code">AdjutantID</code></td><td>number</td><td>Unique Project ID</td></tr>
+            <tr><td><code className="inline-code">Quote</code></td><td>number</td><td>Quote Number</td></tr>
+            <tr><td><code className="inline-code">CustNo</code></td><td>string</td><td>Customer Number</td></tr>
+            <tr><td><code className="inline-code">Customer</code></td><td>string</td><td>Customer Name</td></tr>
+            <tr><td><code className="inline-code">ProjectName</code></td><td>string</td><td>Name of the Project</td></tr>
+            <tr><td><code className="inline-code">SalesPerson</code></td><td>number</td><td>Employee ID of Salesperson</td></tr>
+            <tr><td><code className="inline-code">ProjectManager</code></td><td>number</td><td>Employee ID of Project Manager</td></tr>
+            <tr><td><code className="inline-code">Complexity</code></td><td>number</td><td>Complexity Rating</td></tr>
+            <tr><td><code className="inline-code">Estimator</code></td><td>number</td><td>Employee ID of Estimator</td></tr>
             <tr><td><code className="inline-code">ProjectStreet</code></td><td>string</td><td>Project Street Address</td></tr>
             <tr><td><code className="inline-code">ProjectCity</code></td><td>string</td><td>Project City</td></tr>
             <tr><td><code className="inline-code">ProjectState</code></td><td>string</td><td>Project State</td></tr>
             <tr><td><code className="inline-code">ProjectZip</code></td><td>string</td><td>Project Zip</td></tr>
             <tr><td><code className="inline-code">ProjectCounty</code></td><td>string</td><td>Project County</td></tr>
-            <tr><td><code className="inline-code">DateSubmitted</code></td><td>datetime</td><td>Submission date</td></tr>
-            <tr><td><code className="inline-code">EstDateComp</code></td><td>datetime</td><td>Estimated completion date</td></tr>
-            <tr><td><code className="inline-code">BidDate</code></td><td>datetime</td><td>Bid date</td></tr>
+            <tr><td><code className="inline-code">DateSubmitted</code></td><td>datetime</td><td>Submission Date (Started Date)</td></tr>
+            <tr><td><code className="inline-code">EstDateComp</code></td><td>datetime</td><td>Estimated Completion Date</td></tr>
+            <tr><td><code className="inline-code">BidDate</code></td><td>datetime</td><td>Bid Date</td></tr>
           </tbody>
         </table>
       </div>
