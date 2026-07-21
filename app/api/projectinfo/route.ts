@@ -30,8 +30,9 @@ export interface IToolQuote extends RowDataPacket {
   BidDate: Date | null;
 }
 
-const SELECT_FIELDS = `ID, AdjutantID, Quote, Customer, ProjectName, SalesPerson,
-  ProjectManager, Complexity, Estimator, DateSubmitted, EstDateComp, BidDate`;
+const SELECT_FIELDS = `ID, AdjutantID, Quote, CustNo, Customer, ProjectName, SalesPerson,
+  ProjectManager, Complexity, Estimator, ProjectStreet, ProjectCity, ProjectState, ProjectZip,
+  ProjectCounty, Progress, OnHold, DateSubmitted, EstDateComp, BidDate`;
 
 export async function GET(request: NextRequest) {
   const auth = await validateRequest(request);
@@ -232,6 +233,7 @@ export async function POST(request: NextRequest) {
       }
       if (ProjectStatus == "On Hold") {
         columns.push({ name: "OnHold", value: 1 });
+      }
     }
 
     try {
