@@ -32,6 +32,18 @@ const endpoints: EndpointCard[] = [
     description: "Create or update a project info record.",
     href: "/projectinfo",
   },
+  {
+    method: "GET",
+    path: "/api/changeorders",
+    description: "Returns the 10 most recent project info records.",
+    href: "/changeorders",
+  },
+  {
+    method: "POST",
+    path: "/api/changeorders",
+    description: "Create or update a project info record.",
+    href: "/changeorders",
+  },
 ];
 
 export default function HomePage() {

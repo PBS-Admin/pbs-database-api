@@ -106,6 +106,7 @@ export async function POST(request: NextRequest) {
     CustNo,
     Customer,
     ProjectName,
+    SalesPerson,
     ProjectManager,
     Complexity,
     COComplexity,
@@ -134,6 +135,11 @@ export async function POST(request: NextRequest) {
 
     if (typeof Job === "string")
       columns.push({ name: "Job", value: Job });
+//    if (typeof SalesPerson === "number") {
+//      columns.push({ name: "SalesPerson", value: SalesPerson });
+//    } else if (typeof SalesPerson === "string") {
+//      columns.push({ name: "SalesPerson", value: +SalesPerson });
+//    }
     if (typeof ProjectManager === "number") {
       columns.push({ name: "ProjectManager", value: ProjectManager });
     } else if (typeof ProjectManager === "string") {
