@@ -24,7 +24,7 @@ export default function ChangeOrdersPage() {
           </thead>
           <tbody>
             <tr><td><code className="inline-code">ID</code></td><td>number</td><td>Record ID</td></tr>
-            <tr><td><code className="inline-code">AdjutantID</code></td><td>number</td><td>Unique Project ID</td></tr>
+            <tr><td><code className="inline-code">AdjutantID</code></td><td>string</td><td>Unique Project ID</td></tr>
             <tr><td><code className="inline-code">Job</code></td><td>string</td><td>Job Number</td></tr>
             <tr><td><code className="inline-code">CustNo</code></td><td>string</td><td>Customer Number</td></tr>
             <tr><td><code className="inline-code">Customer</code></td><td>string</td><td>Customer Name</td></tr>
@@ -70,7 +70,7 @@ export default function ChangeOrdersPage() {
         method="POST"
         requestTypes={["NEWCHANGEORDER", "SAVECHANGEORDER"]}
         bodyFields={[
-          { label: "AdjutantID", name: "AdjutantID", type: "number", placeholder: "e.g. 5", required: true },
+          { label: "AdjutantID", name: "AdjutantID", type: "text", placeholder: "e.g. 5", required: true },
           { label: "Job", name: "Job", type: "text", placeholder: "e.g. 19999" },
           { label: "CustNo", name: "CustNo", type: "text", placeholder: "e.g. PBS0001" },
           { label: "Customer", name: "Customer", type: "text", placeholder: "e.g. PBS Test Customer" },

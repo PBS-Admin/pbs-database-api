@@ -5,7 +5,7 @@ import { validateRequest, okResponse, failResponse } from "@/app/lib/apiAuth";
 
 export interface IToolQuote extends RowDataPacket {
   ID: number;
-  AdjutantID: number | null;
+  AdjutantID: string | null;
   Job: string | null;
   CustNo: string | null;
   Customer: string | null;
@@ -118,15 +118,14 @@ export async function POST(request: NextRequest) {
 
   try {
     // AdjutantID is required as the lookup key
-    const parsedAdjutantID = Number(AdjutantID);
+    const parsedAdjutantID = AdjutantID;
     if (
       AdjutantID === null ||
-      AdjutantID === undefined ||
-      Number.isNaN(parsedAdjutantID)
+      AdjutantID === undefined
     ) {
       return failResponse(
         "Invalid DATA1",
-        "Field 'AdjutantID' (number) is required in DATA1.",
+        "Field 'AdjutantID' (string) is required in DATA1.",
       );
     }
 
