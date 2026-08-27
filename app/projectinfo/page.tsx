@@ -41,7 +41,7 @@ export default function ProjectInfoPage() {
             <tr><td><code className="inline-code">DateSubmitted</code></td><td>datetime</td><td>Submission Date (Started Date)</td></tr>
             <tr><td><code className="inline-code">EstDateComp</code></td><td>datetime</td><td>Estimated Completion Date</td></tr>
             <tr><td><code className="inline-code">BidDate</code></td><td>datetime</td><td>Bid Date</td></tr>
-            <tr><td><code className="inline-code">ProgressStatus</code></td><td>string</td><td>Text Status</td></tr>
+            <tr><td><code className="inline-code">ProjectStatus</code></td><td>string</td><td>Text Status</td></tr>
           </tbody>
         </table>
       </div>
