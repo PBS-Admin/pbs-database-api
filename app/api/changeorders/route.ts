@@ -111,7 +111,7 @@ export async function POST(request: NextRequest) {
     Complexity,
     COComplexity,
     Estimator,
-    ProjectStatus,
+    Status,
     DateSubmitted,
     EstDateComp,
   } = data1;
@@ -165,32 +165,32 @@ export async function POST(request: NextRequest) {
       columns.push({ name: "Customer", value: Customer });
     if (typeof ProjectName === "string")
       columns.push({ name: "ProjectName", value: ProjectName });
-    if (typeof ProjectStatus === "string") {
-      if (ProjectStatus == "Quote Started") {
+    if (typeof Status === "string") {
+      if (Status == "Quote Started") {
         columns.push({ name: "Progress", value: 1 });
         columns.push({ name: "OnHold", value: 0 });
       }
-      if (ProjectStatus == "Est Review") {
+      if (Status == "Est Review") {
         columns.push({ name: "Progress", value: 10001 });
         columns.push({ name: "OnHold", value: 0 });
       }
-      if (ProjectStatus == "In Estimating") {
+      if (Status == "In Estimating") {
         columns.push({ name: "Progress", value: 10001 });
         columns.push({ name: "OnHold", value: 0 });
       }
-      if (ProjectStatus == "Est Checking") {
+      if (Status == "Est Checking") {
         columns.push({ name: "Progress", value: 110001 });
         columns.push({ name: "OnHold", value: 0 });
       }
-      if (ProjectStatus == "Check Review") {
+      if (Status == "Check Review") {
         columns.push({ name: "Progress", value: 110001 });
         columns.push({ name: "OnHold", value: 0 });
       }
-      if (ProjectStatus == "Quote Finished") {
+      if (Status == "Quote Finished") {
         columns.push({ name: "Progress", value: 1010101 });
         columns.push({ name: "OnHold", value: 0 });
       }
-      if (ProjectStatus == "On Hold") {
+      if (Status == "On Hold") {
         columns.push({ name: "OnHold", value: 1 });
       }
     }
@@ -234,7 +234,7 @@ export async function POST(request: NextRequest) {
       if (columns.length === 0) {
         return failResponse(
           "Invalid DATA1",
-          "Provide at least one field to update in DATA1. Valid fields: Job (numstringber), CustNo (string), Customer (string), ProjectName (string), ProjectManager (number), Complexity (number), COComplexity (number), Estimator (number), ProjectStatus (string), DateSubmitted (datetime), EstDateComp (datetime).",
+          "Provide at least one field to update in DATA1. Valid fields: Job (numstringber), CustNo (string), Customer (string), ProjectName (string), ProjectManager (number), Complexity (number), COComplexity (number), Estimator (number), Status (string), DateSubmitted (datetime), EstDateComp (datetime).",
         );
       }
 

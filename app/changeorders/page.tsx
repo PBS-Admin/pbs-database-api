@@ -35,7 +35,7 @@ export default function ChangeOrdersPage() {
             <tr><td><code className="inline-code">Estimator</code></td><td>number</td><td>Employee ID of Estimator</td></tr>
             <tr><td><code className="inline-code">DateSubmitted</code></td><td>datetime</td><td>Submission Date (Started Date)</td></tr>
             <tr><td><code className="inline-code">EstDateComp</code></td><td>datetime</td><td>Estimated Completion Date</td></tr>
-            <tr><td><code className="inline-code">ProjectStatus</code></td><td>string</td><td>Text Status</td></tr>
+            <tr><td><code className="inline-code">Status</code></td><td>string</td><td>Text Status</td></tr>
           </tbody>
         </table>
       </div>
@@ -81,7 +81,7 @@ export default function ChangeOrdersPage() {
           { label: "Estimator", name: "Estimator", type: "number", placeholder: "Employee ID" },
           { label: "Date Submitted", name: "DateSubmitted", type: "datetime-local" },
           { label: "Est. Completion", name: "EstDateComp", type: "datetime-local" },
-          { label: "ProjectStatus", name: "ProjectStatus", type: "text", placeholder: "e.g. In Estimating" },
+          { label: "Status", name: "Status", type: "text", placeholder: "e.g. In Estimating" },
         ]}
       />
 
