@@ -153,12 +153,14 @@ export async function POST(request: NextRequest) {
     if (typeof SalesPerson === "number") {
       columns.push({ name: "SalesPerson", value: SalesPerson });
     } else if (typeof SalesPerson === "string") {
-      columns.push({ name: "SalesPerson", value: +SalesPerson });
+//      columns.push({ name: "SalesPerson", value: +SalesPerson });
+      columns.push({ name: "SalesPerson", value: 0 });
     }
     if (typeof ProjectManager === "number") {
       columns.push({ name: "ProjectManager", value: ProjectManager });
     } else if (typeof ProjectManager === "string") {
-      columns.push({ name: "ProjectManager", value: +ProjectManager });
+//      columns.push({ name: "ProjectManager", value: +ProjectManager });
+      columns.push({ name: "ProjectManager", value: 0 });
     }
     if (typeof Complexity === "number") {
       columns.push({ name: "Complexity", value: Complexity });
@@ -168,7 +170,8 @@ export async function POST(request: NextRequest) {
     if (typeof Estimator === "number") {
       columns.push({ name: "Estimator", value: Estimator });
     } else if (typeof Estimator === "string") {
-      columns.push({ name: "Estimator", value: +Estimator });
+//      columns.push({ name: "Estimator", value: +Estimator });
+      columns.push({ name: "Estimator", value:0 });
     }
     if (typeof CustNo === "string")
       columns.push({ name: "CustNo", value: CustNo });
@@ -226,7 +229,7 @@ export async function POST(request: NextRequest) {
         columns.push({ name: "DateStarted", value: formattedDateSubmitted });
       } else {
 //        columns.push({ name: "DateSubmitted", value: null });
-        columns.push({ name: "DateStarted", value: null });
+        columns.push({ name: "DateStarted", value: "null" });
       }
 
       const formattedEstDateComp = validateAndFormatDatetime(
@@ -236,14 +239,14 @@ export async function POST(request: NextRequest) {
       if (formattedEstDateComp !== null) {
         columns.push({ name: "EstDateComp", value: formattedEstDateComp });
       } else {
-        columns.push({ name: "EstDateComp", value: null });
+        columns.push({ name: "EstDateComp", value: "null" });
       }
 
       const formattedBidDate = validateAndFormatDatetime(BidDate, "BidDate");
       if (formattedBidDate !== null) {
         columns.push({ name: "BidDate", value: formattedBidDate });
       } else {
-        columns.push({ name: "BidDate", value: null });
+        columns.push({ name: "BidDate", value: "null" });
       }
 
 //    } catch (err: any) {
