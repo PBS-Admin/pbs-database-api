@@ -131,10 +131,16 @@ export async function POST(request: NextRequest) {
 
     // Collect optional fields
     const columns: { name: string; value: any }[] = [];
+    const coNum = parsedAdjutantID.slice(parsedAdjutantID.lastIndexOf("-") + 1); // 10011-03 -> 03
 
     if (typeof Job === "string")
       columns.push({ name: "Job", value: Job });
-//    if (typeof SalesPerson === "number") {
+
+      if (!isNaN(Number(coNum))) {
+        columns.push({ name: "CO", value: Number(coNum) });
+      }
+
+    //    if (typeof SalesPerson === "number") {
 //      columns.push({ name: "SalesPerson", value: SalesPerson });
 //    } else if (typeof SalesPerson === "string") {
 //      columns.push({ name: "SalesPerson", value: +SalesPerson });
