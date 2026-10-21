@@ -148,7 +148,14 @@ export async function POST(request: NextRequest) {
     if (typeof Quote === "number") {
       columns.push({ name: "Quote", value: Quote });
     } else if (typeof Quote === "string") {
-      columns.push({ name: "Quote", value: +Quote });
+//      columns.push({ name: "Quote", value: +Quote });
+      if (Quote.includes('-R')) {
+        const [base, revision] = Quote.split('-R');
+        columns.push({ name: "Quote", value: +base });
+        columns.push({ name: "Rev", value: +revision });
+      } else {
+        columns.push({ name: "Quote", value: +Quote });
+      }
     }
     if (typeof SalesPerson === "number") {
       columns.push({ name: "SalesPerson", value: SalesPerson });
