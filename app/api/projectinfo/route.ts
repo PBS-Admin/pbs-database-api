@@ -160,14 +160,14 @@ export async function POST(request: NextRequest) {
     if (typeof SalesPerson === "number") {
       columns.push({ name: "SalesPerson", value: SalesPerson });
     } else if (typeof SalesPerson === "string") {
-//      columns.push({ name: "SalesPerson", value: +SalesPerson });
-      columns.push({ name: "SalesPerson", value: 0 });
+      columns.push({ name: "SalesPerson", value: +SalesPerson });
+//      columns.push({ name: "SalesPerson", value: 0 });
     }
     if (typeof ProjectManager === "number") {
       columns.push({ name: "ProjectManager", value: ProjectManager });
     } else if (typeof ProjectManager === "string") {
-//      columns.push({ name: "ProjectManager", value: +ProjectManager });
-      columns.push({ name: "ProjectManager", value: 0 });
+      columns.push({ name: "ProjectManager", value: +ProjectManager });
+//      columns.push({ name: "ProjectManager", value: 0 });
     }
     if (typeof Complexity === "number") {
       columns.push({ name: "Complexity", value: Complexity });
@@ -177,8 +177,8 @@ export async function POST(request: NextRequest) {
     if (typeof Estimator === "number") {
       columns.push({ name: "Estimator", value: Estimator });
     } else if (typeof Estimator === "string") {
-//      columns.push({ name: "Estimator", value: +Estimator });
-      columns.push({ name: "Estimator", value:0 });
+      columns.push({ name: "Estimator", value: +Estimator });
+//      columns.push({ name: "Estimator", value:0 });
     }
     if (typeof CustNo === "string")
       columns.push({ name: "CustNo", value: CustNo });
@@ -227,10 +227,7 @@ export async function POST(request: NextRequest) {
     }
 
 //    try {
-      const formattedDateSubmitted = validateAndFormatDatetime(
-        DateSubmitted,
-        "DateSubmitted",
-      );
+      const formattedDateSubmitted = validateAndFormatDatetime(DateSubmitted, "DateSubmitted");
       if (formattedDateSubmitted !== null) {
 //        columns.push({ name: "DateSubmitted", value: formattedDateSubmitted });
         columns.push({ name: "DateStarted", value: formattedDateSubmitted });
@@ -239,10 +236,7 @@ export async function POST(request: NextRequest) {
         columns.push({ name: "DateStarted", value: "null" });
       }
 
-      const formattedEstDateComp = validateAndFormatDatetime(
-        EstDateComp,
-        "EstDateComp",
-      );
+      const formattedEstDateComp = validateAndFormatDatetime(EstDateComp, "EstDateComp");
       if (formattedEstDateComp !== null) {
         columns.push({ name: "EstDateComp", value: formattedEstDateComp });
       } else {
