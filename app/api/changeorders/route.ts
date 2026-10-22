@@ -104,7 +104,8 @@ export async function POST(request: NextRequest) {
     AdjutantID,
     Job,
     CustNo,
-    Customer,
+//    Customer,
+    Company,
     ProjectName,
     SalesPerson,
     ProjectManager,
@@ -136,21 +137,27 @@ export async function POST(request: NextRequest) {
     if (typeof Job === "string")
       columns.push({ name: "Job", value: Job });
 
-      if (!isNaN(Number(coNum))) {
-        columns.push({ name: "CO", value: Number(coNum) });
-      }
+    if (!isNaN(Number(coNum))) {
+      columns.push({ name: "CO", value: Number(coNum) });
+    }
 
-    //    if (typeof SalesPerson === "number") {
+//    if (typeof SalesPerson === "number") {
 //      columns.push({ name: "SalesPerson", value: SalesPerson });
 //    } else if (typeof SalesPerson === "string") {
-//      columns.push({ name: "SalesPerson", value: +SalesPerson });
-//      columns.push({ name: "SalesPerson", value: 0 });
+//      if (SalesPerson == "") {
+//        columns.push({ name: "SalesPerson", value: 0 });
+//      } else {
+//        columns.push({ name: "SalesPerson", value: +SalesPerson });
+//      }
 //    }
     if (typeof ProjectManager === "number") {
       columns.push({ name: "ProjectManager", value: ProjectManager });
     } else if (typeof ProjectManager === "string") {
-//      columns.push({ name: "ProjectManager", value: +ProjectManager });
-      columns.push({ name: "ProjectManager", value: 0 });
+      if (ProjectManager == "") {
+        columns.push({ name: "ProjectManager", value: 0 });
+      } else {
+        columns.push({ name: "ProjectManager", value: +ProjectManager });
+      }
     }
     if (typeof Complexity === "number") {
       columns.push({ name: "JobComplex", value: Complexity });
@@ -165,13 +172,18 @@ export async function POST(request: NextRequest) {
     if (typeof Estimator === "number") {
       columns.push({ name: "Estimator", value: Estimator });
     } else if (typeof Estimator === "string") {
-//      columns.push({ name: "Estimator", value: +Estimator });
-      columns.push({ name: "Estimator", value: 0 });
+      if (Estimator == "") {
+        columns.push({ name: "Estimator", value: 0 });
+      } else {
+        columns.push({ name: "Estimator", value: +Estimator });
+      }
     }
     if (typeof CustNo === "string")
       columns.push({ name: "CustNo", value: CustNo });
-    if (typeof Customer === "string")
-      columns.push({ name: "Customer", value: Customer });
+//    if (typeof Customer === "string")
+//      columns.push({ name: "Customer", value: Customer });
+    if (typeof Company === "string")
+      columns.push({ name: "Customer", value: Company });
     if (typeof ProjectName === "string")
       columns.push({ name: "ProjectName", value: ProjectName });
     if (typeof Status === "string") {
